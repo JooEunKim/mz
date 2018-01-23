@@ -10,16 +10,22 @@
   - 시각화 한다.
 
 ## Key Reference
-  - 데이터 검색 Query
+   데이터 검색 Query
 
-       	select o.payeraccount, o.productcode
-              sum(o.unblendedcost) as o_cost,
-              sum(m.unblendedcost) as m_cost,	
-        from invoice.original_lineitem as o
-       	 inner join invoice.modified_lineitem as m 
-          on o.payeraccountid = m.payeraccountid
-       	 where o.billingperiodstartdate = '2017-12-01 00:00:00'
-       	  group by o.payeraccount, o.productcode
+    -- modified
+    select payeraccountid,
+    		sum(unblendedcost) as cost_a
+      from invoice.modified_lineitem_201712 
+     where billingperiodstartdate = '2017-12-01 00:00:00'
+     group by payeraccountid;
+    
+    -- original
+    select payeraccountid,
+    		sum(unblendedcost) as cost_a
+      from invoice.original_lineitem_201712 
+     where billingperiodstartdate = '2017-12-01 00:00:00'
+     group by payeraccountid;
+    
 
   - 시각화 Python Script
 
